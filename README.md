@@ -20,7 +20,8 @@ You must implement a test executable named test.py that imports your framework a
 ## Suggested structure
 You are free to come with any new ideas you want, and grading will reward originality. The suggested
 simple structure is to define a class: 
-```class Module ( object ) :
+```
+class Module ( object ) :
 
     def forward ( self , * input ) :
       raise NotImplementedError
