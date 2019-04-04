@@ -9,7 +9,7 @@ class Module(object):
     def param(self):
         return []
 
-class Binary(Module):
+class BinaryOperation(Module):
     def __init__(self):
         self.l = None
         self.r = None
@@ -27,7 +27,7 @@ class Binary(Module):
         self.l = l
         self.r = r
 
-class Unary(Module):
+class UnaryOperation(Module):
     def __init__(self):
         self.input = None
 
