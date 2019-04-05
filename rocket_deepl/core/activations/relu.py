@@ -6,17 +6,16 @@ class  ReLU(UnaryOperation):
 
 
     def forward(self,input):
-        
+
         super().forward(input)
-        
+
         return tensor.Tensor(input.data.relu(), prev_op = self)
 
-        
 
 
     #TODO:
     def backward(self, gradientwrtoutput):
-    
+
        pass
 
 
