@@ -42,3 +42,7 @@ class UnaryOperation(Module):
 
     def forward(self, input):
         self.input = input
+
+
+print(UnaryOperation())
+print(BinaryOperation())
