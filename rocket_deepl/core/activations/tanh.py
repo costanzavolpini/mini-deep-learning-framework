@@ -1,21 +1,13 @@
-from rocket_deepl.module import UnaryOperation
-import rocket_deepl.tensor as tensor
+from rocket_deepl.module import Module
+import torch
 import tanh
 
 
-class  tanH(UnaryOperation):
+class  tanH(Module):
 
+    def forward(self, input):
+        return input.tanh()
 
-    #TODO:
-    def forward(self,input):
-        
-        super().forward(input)
-
-        return tensor.Tensor(input.data.tanh(), prev_op = self)
-    
-        
-
-    #TODO:
     def backward(self, gradientwrtoutput):
-    
-       pass
+        "Derivative of tanh(x) is 1 - tanh^2(x)"
+        return 1 - (gradientwrtoutput.tanh() ** 2)

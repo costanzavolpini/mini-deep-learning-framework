@@ -1,0 +1,5 @@
+Suggestions
+
+visualization ideas: like show accuracy, dataset, etc.
+softmax, cross entropy
+operations (build network with a dictionary)

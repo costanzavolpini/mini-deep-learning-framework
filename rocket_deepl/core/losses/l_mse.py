@@ -1,26 +1,15 @@
-from rocket_deepl.module import BinaryOperation
-import rocket_deepl.tensor as tensor
+from rocket_deepl.module import Module
 
-class loss(BinaryOperation):
-
-    def __init__(self):
-        super().__init__()
-
-
+class loss(Module):
     def __call__(self, estimated, target):
         return self.forward(estimated, target)
 
-
     #TODO:
     def forward(self, estimated, target):
-
-        super().forward(estimated, target)
-
-        return tensor.Tensor(((estimated.data - target.data) ** 2).mean(), prev_op = self)
-
-
+        self.estimated = estimated
+        self.target = target
+        return ((estimated.data - target.data) ** 2).mean()
 
     #TODO:
-    def backward(self, gradientwrtoutput):
-
-       pass
+    def backward(self):
+        return 2 * (self.estimated - self.target)

@@ -9,40 +9,36 @@ class Module(object):
     def param(self):
         return []
 
-class BinaryOperation(Module):
-    def __init__(self):
-        self.l = None
-        self.r = None
+# class BinaryOperation(Module):
+#     def __init__(self):
+#         self.l = None
+#         self.r = None
 
-    def __str__(self):
-        return "{} left operator: {}\n right operator:\n {}".format(self.__class__.__name__, self.l, self.r)
+#     def __str__(self):
+#         return "{} left operator: {}\n right operator:\n {}".format(self.__class__.__name__, self.l, self.r)
 
-    def __repr__(self):
-        return self.__str__()
+#     def __repr__(self):
+#         return self.__str__()
 
-    def __call__(self, l, r):
-        return self.forward(l, r)
+#     def __call__(self, l, r):
+#         return self.forward(l, r)
 
-    def forward(self, l, r):
-        self.l = l
-        self.r = r
+#     def forward(self, l, r):
+#         self.l = l
+#         self.r = r
 
-class UnaryOperation(Module):
-    def __init__(self):
-        self.input = None
+# class UnaryOperation(Module):
+#     def __init__(self):
+#         self.input = None
 
-    def __str__(self):
-        return "{} unary operator: {}\n".format(self.__class__.__name__, self.input)
+#     def __str__(self):
+#         return "{} unary operator: {}\n".format(self.__class__.__name__, self.input)
 
-    def __repr__(self):
-        return self.__str__()
+#     def __repr__(self):
+#         return self.__str__()
 
-    def __call__(self, input):
-        return self.forward(input)
+#     def __call__(self, input):
+#         return self.forward(input)
 
-    def forward(self, input):
-        self.input = input
-
-
-print(UnaryOperation())
-print(BinaryOperation())
+#     def forward(self, input):
+#         self.input = input
