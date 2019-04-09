@@ -1,5 +1,6 @@
-from rocket_deepl.module import Module, Linear
 import torch
+from rocket_deepl.module import *
+
 
 class Sequential(Module):
 

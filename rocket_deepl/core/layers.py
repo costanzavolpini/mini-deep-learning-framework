@@ -1,5 +1,5 @@
-from rocket_deepl.module import Module
 import torch
+from rocket_deepl.module import *
 
 class Linear(Module):
     def __init__(self, input_layer, output_layer):
@@ -67,3 +67,11 @@ class Linear(Module):
     def zero_grad(self):
         self.grad_w[:, :] = 0.0
         self.grad_b[:, :] = 0.0
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
-from rocket_deepl.module import Module
 import torch
+from rocket_deepl.module import *
+
 # Stochastic gradient descent consists of updating the parameters w_t after every sample w_{t+1}
 # w_{t+1} = w_t - step * gradient of loss_{n(t)} (w_t)
 

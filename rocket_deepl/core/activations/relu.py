@@ -1,8 +1,13 @@
-from rocket_deepl.module import Module
 import torch
+from rocket_deepl.module import *
+
+
 
 
 class  ReLU(Module):
+
+
+
 
     def forward(self, input):
         return input.relu()

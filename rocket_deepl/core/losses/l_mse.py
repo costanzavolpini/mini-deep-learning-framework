@@ -1,4 +1,6 @@
-from rocket_deepl.module import Module
+import torch
+from rocket_deepl.module import *
+
 
 class loss(Module):
     def __call__(self, estimated, target):

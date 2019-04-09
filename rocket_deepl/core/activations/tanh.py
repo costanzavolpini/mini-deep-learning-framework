@@ -1,6 +1,5 @@
-from rocket_deepl.module import Module
 import torch
-import tanh
+from rocket_deepl.module import *
 
 
 class  tanH(Module):
