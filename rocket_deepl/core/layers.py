@@ -63,3 +63,7 @@ class Linear(Module):
 
     def get_grad_bias(self):
         return self.grad_b
+
+    def zero_grad(self):
+        self.grad_w[:, :] = 0.0
+        self.grad_b[:, :] = 0.0

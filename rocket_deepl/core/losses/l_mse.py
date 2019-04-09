@@ -11,5 +11,5 @@ class loss(Module):
         return ((estimated.data - target.data) ** 2).mean()
 
     #TODO:
-    def backward(self):
+    def backward(self, *noparam):
         return 2 * (self.estimated - self.target)
