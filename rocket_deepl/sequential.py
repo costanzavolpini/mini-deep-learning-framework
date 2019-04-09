@@ -1,79 +1,75 @@
 import torch
 from rocket_deepl.module import *
 
+from rocket_deepl.core.losses.l_mse import *
+from rocket_deepl.optimizer.sgd import *
+
 
 class Sequential(Module):
 
-    def __init__(self, layers):
+    def __init__(self, layers, optimizer = 'sgd', loss_layer = MSEloss(), lr=0.01):
         """
         layers is a list of modules which can also be empty.
         layers = [Linear(), Relu(), Linear()...]
         """
+
+        #TODO: handle exception handling
         self.modules = layers
-        self.loss = 0
         self.weights = []
+        self.learning_rate = lr
 
+        self.loss = 0
 
+        #TODO: add condition to handle several losses
+        self.loss_layer = loss_layer
+        self.optimizer = SGD(self, lr)
+
+        #added loss at last layer
+        self.modules.append(loss_layer)
 
     def __call__(self, x_train, 
-                 target, optimizer = 'SGD',
-                 epochs=25, loss='mse', early_stopping=False):
-
-        self.fit(x_train, target, optimizer, epochs, loss, early_stopping)
+                 target):
+        self.fit(x_train, target)
         
+    def step(self):
+      self.optimizer.update_weight()
 
-        
+    def forward(self, input, target):
 
+        #dont take the last layer since it behaves differently
+        for l in range(len(self.modules)-1) :
+            input = self.modules[l].forward(input)
 
-    def forward(self, input):
-        for layer in self.modules :
-            input = layer.forward(input)
-        return input #TODO: check if we need or not need to return the input
+        #get mse layer and apply the target
+        self.loss += self.modules[-1].forward(input,target)
 
 
     def backward(self, gradientwrtoutput):
-        #TODO: check reverse and so on!
+
+        #reverse for backward propogation
         for layer in self.modules.reverse():
             gradientwrtoutput = layer.backward(gradientwrtoutput)
-            self.weights.append(gradientwrtoutput)
-        self.weights.reverse()
+
+        #reset the loss 
+        self.loss = 0
 
     def fit(self, x_train,
-              target, optimizer = 'SGD',
-              epochs=25,
-              loss='mse', early_stopping=False):
+              target):
 
-        for e in epochs:
-            for x in range(0, x_train.size(0)):
-                val = self.forward(x)
-                self.backward(val)
-                print(self.compute_accuracy)
-
-
-  
+        for x in range(0, x_train.size(0)):
+            self.forward(x,target)
 
     def compute_accuracy(self):
-
         pass
-
-
-    def compute_nb_miss_predictions(self):
-
-        pass
-
 
     def plot_history(self):
-
         pass
 
+    def save_model(self,name):
+        torch.save(self, name)
 
-    def save_weights(self):
-
-        pass
-
-    def load_weights(self):
-
-        pass
+    def load_model(self, name):
+        torch.load(name)
 
     def zero_grad(self):
         for l in self.modules:

@@ -2,7 +2,7 @@ import torch
 from rocket_deepl.module import *
 
 
-class loss(Module):
+class MSEloss(Module):
     def __call__(self, estimated, target):
         return self.forward(estimated, target)
 
