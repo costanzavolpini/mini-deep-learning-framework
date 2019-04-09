@@ -14,6 +14,17 @@ class Sequential(Module):
         self.weights = []
 
 
+
+    def __call__(self, x_train, 
+                 target, optimizer = 'SGD',
+                 epochs=25, loss='mse', early_stopping=False):
+
+        self.fit(x_train, target, optimizer, epochs, loss, early_stopping)
+        
+
+        
+
+
     def forward(self, input):
         for layer in self.modules :
             input = layer.forward(input)
@@ -30,13 +41,16 @@ class Sequential(Module):
     def fit(self, x_train,
               target, optimizer = 'SGD',
               epochs=25,
-              loss='mse', early_stopping=False,):
+              loss='mse', early_stopping=False):
 
         for e in epochs:
             for x in range(0, x_train.size(0)):
                 val = self.forward(x)
                 self.backward(val)
                 print(self.compute_accuracy)
+
+
+  
 
     def compute_accuracy(self):
 
