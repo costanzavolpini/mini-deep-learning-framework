@@ -10,7 +10,7 @@ class MSEloss(Module):
     def forward(self, estimated, target):
         self.estimated = estimated
         self.target = target
-        return ((estimated.data - target.data) ** 2).mean()
+        return ((estimated - target) ** 2).mean()
 
     #TODO:
     def backward(self, *noparam):

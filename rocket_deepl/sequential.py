@@ -35,22 +35,16 @@ class Sequential(Module):
 
     def forward(self, input, target):
 
-
-
         #dont take the last layer since it behaves differently
         for l in range(len(self.modules)-1) :
-            
             input = self.modules[l].forward(input.t())
 
 
-       
-
         #get mse layer and apply the target
 
-        
 
 
-
+        print(target)
 
         #self.loss += self.modules[-1].forward(input,target)
 

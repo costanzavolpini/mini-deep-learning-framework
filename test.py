@@ -67,7 +67,7 @@ print("tanh:\n",activation_tanh)
 
 
 """
-layer_1= Linear(2,4)
+layer_1= Linear(2,2)
 #print(layer_1)
 
 
@@ -82,7 +82,7 @@ mini_batch_size = 1
 print(s)
 """
 
-
+"""
 for e in range(0, epochs):
     for batch in range(0, train_input.size(0), mini_batch_size):
 
@@ -97,6 +97,7 @@ for e in range(0, epochs):
         #model.backward()
         #model.step()
 
+"""
 
 
 
@@ -105,9 +106,6 @@ for e in range(0, epochs):
 
 
 
+train_input[[1,3,4], t] = 5
 
-
-
-
-
-
+print(train_input)
