@@ -74,7 +74,7 @@ layer_1= Linear(2,2)
 
 model = Sequential([layer_1])
 
-epochs = 10
+epochs = 25
 mini_batch_size = 1
 
 
@@ -89,10 +89,10 @@ for e in range(0, epochs):
         
         model.zero_grad()
         model.backward()
-        #model.step()$
-        print("loss at epoch {} = {}".format(e,model.loss))
+        model.step()
+      
 
-    
+    print("loss at epoch {} = {}".format(e,model.loss))
     model.loss = 0.0
 
 
