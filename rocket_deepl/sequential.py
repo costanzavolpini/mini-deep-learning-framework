@@ -20,13 +20,14 @@ class Sequential(Module):
         self.loss = 0
 
         #TODO: add condition to handle several losses
+        #TODO: add enum for optimizer
         self.loss_layer = loss_layer
         self.optimizer = SGD(self, lr)
 
         #added loss at last layer
         self.modules.append(loss_layer)
 
-    def __call__(self, x_train, 
+    def __call__(self, x_train,
                  target):
         self.forward(x_train, target)
         
@@ -57,7 +58,7 @@ class Sequential(Module):
         for layer in self.modules.reverse():
             gradientwrtoutput = layer.backward(gradientwrtoutput)
 
-        #reset the loss 
+        #reset the loss
         self.loss = 0
 
     def fit(self, x_train,
