@@ -7,21 +7,37 @@ class Linear(Module):
         input_layer = l
         input_layer = l + 1
         """
+
+        self.std = 1e-3
+        self.mean = 0 
+
         self.input_layer = input_layer
         self.output_layer = output_layer
-        self.b = torch.empty((output_layer.shape[0], 1))
-        self.w = torch.empty((output_layer.shape[0], input_layer.shape[0]))
+        
+        self.w = torch.empty((output_layer, input_layer))
+        self.b = torch.empty((output_layer, 1))
+
+        #initialize weights
+        self.w.normal_(self.mean, self.std)
+        self.b.normal_(self.mean, self.std)
 
         # gradients respect to weight and gradients respect to bias
         # TODO: check shape to be sure
         self.grad_w = torch.empty((self.w.shape))
+        self.grad_w[:,:] = 0.0
+
         self.grad_b = torch.empty((self.b.shape))
+        self.grad_b[:,:] = 0.0
+
+        
 
     def forward(self, input_layer_before):
         """
         input_layer_before = l - 1
         """
-        return self.w @ input_layer_before + self.b
+
+
+        return (self.w @ input_layer_before) + self.b
 
     def backward(self, gradientwrtoutput):
         # gradientwrtoutput = is given and is a future
@@ -35,12 +51,21 @@ class Linear(Module):
         return self.w, self.b
 
     def reset_weights(self):
-        #TODO: initialize looking on normal distribution and std
-        pass
-        # return torch.empty((self.weight.shape))
+
+        """
+        resets the weights of the model paramters with 
+        based on the normal distribution with 0 meand 1e-3 std
+        """
+        
+        std = 1e-3
+        mean = 0 
+        #initialize based on 0 mean and 1e-3 standard deviation
+        self.w.normal_(mean, std)
+        self.b.normal_(mean, std)
+
 
     def __str__(self):
-        return ("Bias: {}\n Weight: {}\n Gradient respect to weight: {}\n Gradient respect to bias: {}\n".format(self.b, self.w, self.grad_w, self.grad_b))
+        return ("Bias: \n{}\n Weight:\n {}\n Gradient respect to weight:\n {}\n Gradient respect to bias:\n {}\n".format(self.b, self.w, self.grad_w, self.grad_b))
 
 
     """
