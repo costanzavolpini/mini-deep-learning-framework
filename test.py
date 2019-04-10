@@ -66,13 +66,11 @@ activation_tanh= tanH().forward(input_)
 
 print("tanh:\n",activation_tanh)
 
-
 """
-layer_1= Linear(2,2)
 #print(layer_1)
 
 
-model = Sequential([layer_1])
+model = Sequential([Linear(2,2), ReLU()])
 
 epochs = 25
 mini_batch_size = 1

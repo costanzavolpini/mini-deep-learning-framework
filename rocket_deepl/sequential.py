@@ -44,7 +44,7 @@ class Sequential(Module):
 
 
         #get mse layer and apply the target
-
+        
         self.loss += self.modules[-1].forward(input,target)
 
 

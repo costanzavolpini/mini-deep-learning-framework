@@ -36,13 +36,12 @@ class Linear(Module):
         input_layer_before = l - 1
         """
         self.input_layer_before = input_layer_before
+        output  = (self.w @ input_layer_before) + self.b
 
-        return (self.w @ input_layer_before) + self.b
+        return output
 
     def backward(self, gradientwrtoutput):
         # gradientwrtoutput = is given and is a future
-
-
         grad_w = gradientwrtoutput @ self.input_layer_before.t()
 
         self.grad_w += grad_w

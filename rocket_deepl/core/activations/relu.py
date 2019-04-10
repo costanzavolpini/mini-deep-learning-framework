@@ -6,8 +6,7 @@ class  ReLU(Module):
 
     def forward(self, input):
         input[input < 0] = 0.0
-
-        return input
+        return input.t()
 
     #TODO:
     def backward(self, gradientwrtoutput):

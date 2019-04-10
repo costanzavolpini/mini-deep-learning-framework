@@ -16,4 +16,8 @@ class MSEloss(Module):
     def backward(self, *noparam):
         #print("shape",self.target.shape)
         #print("estimanted", self.estimated.shape)
-        return 2 * (self.estimated - self.target.t())
+
+
+        s = 2 * (self.estimated - self.target.t())
+
+        return 2* (self.estimated - self.target.t())
