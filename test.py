@@ -13,10 +13,11 @@ from rocket_deepl.utils import *
 #from rocket_deepl.sequential import Sequential 
 
 
-train_input, train_target = generator(1000)
-test_input, test_target = generator(1000)
+train_input, train_target = generator(1000,True)
+test_input, test_target = generator(1000,True)
 
 
+#print(train_target)
 
 
 #model = Sequential([ Linear(3,4) , ReLU(),  Linear(3,4), ReLU()]) 
@@ -106,6 +107,3 @@ for e in range(0, epochs):
 
 
 
-train_input[[1,3,4], t] = 5
-
-print(train_input)
