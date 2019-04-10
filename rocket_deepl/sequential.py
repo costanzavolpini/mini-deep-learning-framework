@@ -59,7 +59,6 @@ class Sequential(Module):
             gradientwrtoutput = layer.backward(gradientwrtoutput)
 
         #reset the loss
-        self.loss = 0
         self.modules.reverse()
 
     def fit(self, x_train,

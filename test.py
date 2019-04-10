@@ -74,7 +74,7 @@ layer_1= Linear(2,2)
 
 model = Sequential([layer_1])
 
-epochs = 1
+epochs = 10
 mini_batch_size = 1
 
 
@@ -86,14 +86,18 @@ for e in range(0, epochs):
         target = train_target.narrow(0, batch, mini_batch_size)
 
         model(input, target)
-
-        print("loss at epoch {} = {}".format(e,model.loss))
         
         model.zero_grad()
-        #model.backward()
-        #model.step()
+        model.backward()
+        #model.step()$
+        print("loss at epoch {} = {}".format(e,model.loss))
+
+    
+    model.loss = 0.0
 
 
+
+        
 
 
 
