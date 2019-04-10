@@ -15,6 +15,8 @@ class Sequential(Module):
 
         #TODO: handle exception handling
         self.modules = layers
+
+
         self.learning_rate = lr
 
         self.loss = 0
@@ -43,11 +45,8 @@ class Sequential(Module):
 
         #get mse layer and apply the target
 
+        self.loss += self.modules[-1].forward(input,target)
 
-
-        print(target)
-
-        #self.loss += self.modules[-1].forward(input,target)
 
 
 
@@ -55,11 +54,13 @@ class Sequential(Module):
     def backward(self):
         gradientwrtoutput = []
         #reverse for backward propogation
-        for layer in self.modules.reverse():
+        self.modules.reverse()
+        for layer in self.modules:
             gradientwrtoutput = layer.backward(gradientwrtoutput)
 
         #reset the loss
         self.loss = 0
+        self.modules.reverse()
 
     def fit(self, x_train,
               target):

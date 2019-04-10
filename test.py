@@ -78,12 +78,7 @@ epochs = 1
 mini_batch_size = 1
 
 
-"""s = train_input.narrow(0, 0, mini_batch_size)
-
-print(s)
-"""
-
-"""
+s = train_input.narrow(0, 0, mini_batch_size)
 for e in range(0, epochs):
     for batch in range(0, train_input.size(0), mini_batch_size):
 
@@ -92,13 +87,11 @@ for e in range(0, epochs):
 
         model(input, target)
 
-        #print("loss at epoch {} = {}".format(e,model.loss))
+        print("loss at epoch {} = {}".format(e,model.loss))
         
-        #model.zero_grad()
+        model.zero_grad()
         #model.backward()
         #model.step()
-
-"""
 
 
 
