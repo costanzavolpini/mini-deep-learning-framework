@@ -10,3 +10,5 @@ rocket_deepl/__pycache__/module\.cpython-35\.pyc
 rocket_deepl/__pycache__/
 
 rocket_deepl/core/__pycache__/
+
+*.pyc

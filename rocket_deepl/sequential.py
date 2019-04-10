@@ -28,29 +28,31 @@ class Sequential(Module):
 
     def __call__(self, x_train, 
                  target):
-        self.fit(x_train, target)
+        self.forward(x_train, target)
         
     def step(self):
       self.optimizer.update_weight()
 
     def forward(self, input, target):
 
-        print("input :---->", input)
-        print("target:---->", target)
+
 
         #dont take the last layer since it behaves differently
         for l in range(len(self.modules)-1) :
             
-            input = self.modules[l].forward(input)
+            input = self.modules[l].forward(input.t())
+
+
+       
 
         #get mse layer and apply the target
 
-
-        print(target)
-
+        
 
 
-        self.loss += self.modules[-1].forward(input,target)
+
+
+        #self.loss += self.modules[-1].forward(input,target)
 
 
 

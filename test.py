@@ -17,8 +17,6 @@ train_input, train_target = generator(1000)
 test_input, test_target = generator(1000)
 
 
-print(train_input)
-print(train_target)
 
 
 #model = Sequential([ Linear(3,4) , ReLU(),  Linear(3,4), ReLU()]) 
@@ -69,7 +67,7 @@ print("tanh:\n",activation_tanh)
 
 
 """
-layer_1= Linear(3,4)
+layer_1= Linear(2,4)
 #print(layer_1)
 
 
@@ -91,6 +89,7 @@ for e in range(0, epochs):
         input = train_input.narrow(0, batch, mini_batch_size)
         target = train_target.narrow(0, batch, mini_batch_size)
 
+        model(input, target)
 
         #print("loss at epoch {} = {}".format(e,model.loss))
         

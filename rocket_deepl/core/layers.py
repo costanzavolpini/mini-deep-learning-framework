@@ -36,7 +36,9 @@ class Linear(Module):
         input_layer_before = l - 1
         """
 
-
+        print(self.w.shape)
+        print(input_layer_before.shape)
+        print(self.b.shape)
         return (self.w @ input_layer_before) + self.b
 
     def backward(self, gradientwrtoutput):
