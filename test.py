@@ -13,11 +13,19 @@ from rocket_deepl.utils import *
 #from rocket_deepl.sequential import Sequential 
 
 
-train_input, train_target = generator(1000,True)
-test_input, test_target = generator(1000,True)
+train_input, train_target = torch.load("train"), torch.load("target")
 
 
 
+#train_input[:,0] = 0.4557
+#train_input[:,1] = 0.5492
+
+#train_target[:,0] = 1.0
+#train_target[:,1] = 0.
+
+print("training")
+print(train_input)
+print(train_target)
 
 
 #print(train_target)
@@ -75,13 +83,13 @@ print("tanh:\n",activation_tanh)
 
 model = Sequential([Linear(2,2), ReLU()])
 
-epochs = 25
+epochs = 1000
 mini_batch_size = 1
 
 
 s = train_input.narrow(0, 0, mini_batch_size)
 for e in range(0, epochs):
-
+    
     model.zero_grad()
     for batch in range(0, train_input.size(0), mini_batch_size):
 
@@ -90,12 +98,14 @@ for e in range(0, epochs):
 
         model(input, target.t())
         model.zero_grad()
+        loss = model.loss
+        #print("loss at epoch {} = {}".format(e,model.loss))
         model.backward()
         model.step()
 
         
-    print("loss at epoch {} = {}".format(e,model.loss))
-    model.loss = 0
+    print("epoch : {}, loss : {}".format(e,loss))
+    #model.loss = 0
         #model.loss = 0.0
 
    

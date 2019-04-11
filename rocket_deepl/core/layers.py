@@ -21,6 +21,15 @@ class Linear(Module):
         self.b = torch.empty((output_layer, 1)).uniform_(-self.stdv, self.stdv)
 
 
+        self.w.fill_(0.01)
+        self.b.fill_(0.01)
+
+
+
+
+
+
+
         # gradients respect to weight and gradients respect to bias
         # TODO: check shape to be sure
         self.grad_w = torch.empty((self.w.shape))
@@ -36,14 +45,8 @@ class Linear(Module):
         input_layer_before = l - 1
         """
         self.input_layer_before = input_layer_before
-
-     
-        output  = (self.w @ input_layer_before) + self.b
-
-
-
-
-
+        
+        output  = (self.w.mm(input_layer_before)) + self.b
 
         return output
 
