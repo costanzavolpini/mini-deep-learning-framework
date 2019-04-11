@@ -5,8 +5,19 @@ from rocket_deepl.module import *
 class  ReLU(Module):
 
     def forward(self, input):
+
+        
+
+
         input[input < 0] = 0.0
-        return input.t()
+
+        #input = input.t()
+
+
+
+
+
+        return input
 
     #TODO:
     def backward(self, gradientwrtoutput):

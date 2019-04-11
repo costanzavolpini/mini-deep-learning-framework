@@ -7,7 +7,9 @@ class  tanH(Module):
     def forward(self, input):
         inp = input.tanh()
         #inp[inp == -1] = 0
-        inp = inp.t()
+
+        #TODO: transpose
+        #inp = inp.t()
         return inp
 
     def backward(self, gradientwrtoutput):

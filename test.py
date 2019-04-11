@@ -17,6 +17,9 @@ train_input, train_target = generator(1000,True)
 test_input, test_target = generator(1000,True)
 
 
+
+
+
 #print(train_target)
 
 
@@ -78,20 +81,30 @@ mini_batch_size = 1
 
 s = train_input.narrow(0, 0, mini_batch_size)
 for e in range(0, epochs):
+
+    model.zero_grad()
     for batch in range(0, train_input.size(0), mini_batch_size):
 
         input = train_input.narrow(0, batch, mini_batch_size)
         target = train_target.narrow(0, batch, mini_batch_size)
 
-        model(input, target)
-        
+        model(input, target.t())
         model.zero_grad()
         model.backward()
         model.step()
+
+        
+    print("loss at epoch {} = {}".format(e,model.loss))
+    model.loss = 0
+        #model.loss = 0.0
+
+   
+
+    
       
 
-    print("loss at epoch {} = {}".format(e,model.loss))
-    model.loss = 0.0
+    #print("loss at epoch {} = {}".format(e,model.loss))
+
 
 
 

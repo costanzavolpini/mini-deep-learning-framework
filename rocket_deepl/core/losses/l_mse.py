@@ -8,16 +8,22 @@ class MSEloss(Module):
 
     #TODO:
     def forward(self, estimated, target):
-        self.estimated = estimated
+        self.estimated = estimated.t()
+
         self.target = target
-        return ((estimated - target) ** 2).mean()
+   
+
+
+        loss_mse = ((estimated - target) ** 2).mean()
+
+
+
+        return loss_mse
+
 
     #TODO:
     def backward(self, *noparam):
-        #print("shape",self.target.shape)
-        #print("estimanted", self.estimated.shape)
+        to_return =  2* (self.estimated - self.target)
 
 
-        s = 2 * (self.estimated - self.target.t())
-
-        return 2* (self.estimated - self.target.t())
+        return to_return

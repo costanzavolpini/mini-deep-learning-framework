@@ -1,5 +1,6 @@
 import torch
 from rocket_deepl.module import *
+import math
 
 class Linear(Module):
     def __init__(self, input_layer, output_layer):
@@ -8,18 +9,17 @@ class Linear(Module):
         input_layer = l + 1
         """
 
-        self.std = 1e-3
-        self.mean = 0 
+        self.stdv = 1. / math.sqrt(output_layer)
+
+
+
 
         self.input_layer = input_layer
         self.output_layer = output_layer
         
-        self.w = torch.empty((output_layer, input_layer))
-        self.b = torch.empty((output_layer, 1))
+        self.w = torch.empty((output_layer, input_layer)).uniform_(-self.stdv, self.stdv)
+        self.b = torch.empty((output_layer, 1)).uniform_(-self.stdv, self.stdv)
 
-        #initialize weights
-        self.w.normal_(self.mean, self.std)
-        self.b.normal_(self.mean, self.std)
 
         # gradients respect to weight and gradients respect to bias
         # TODO: check shape to be sure
@@ -36,7 +36,14 @@ class Linear(Module):
         input_layer_before = l - 1
         """
         self.input_layer_before = input_layer_before
+
+     
         output  = (self.w @ input_layer_before) + self.b
+
+
+
+
+
 
         return output
 
@@ -46,6 +53,7 @@ class Linear(Module):
 
         self.grad_w += grad_w
         self.grad_b += gradientwrtoutput
+
         return grad_w
 
 

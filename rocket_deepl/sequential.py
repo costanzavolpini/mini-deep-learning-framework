@@ -39,17 +39,15 @@ class Sequential(Module):
     def forward(self, input, target):
 
         #dont take the last layer since it behaves differently
-        for l in range(len(self.modules)-1) :
-            input = self.modules[l].forward(input.t())
 
 
-        #get mse layer and apply the target
+
+        for inp in input :
+            for l in range(len(self.modules)-1) :
+                x = inp.view(-1,1)
+                x = self.modules[l].forward(x)
+            self.loss += self.modules[-1].forward(input,target)
         
-        self.loss += self.modules[-1].forward(input,target)
-
-
-
-
 
     def backward(self):
         gradientwrtoutput = []
@@ -57,6 +55,9 @@ class Sequential(Module):
         self.modules.reverse()
         for layer in self.modules:
             gradientwrtoutput = layer.backward(gradientwrtoutput)
+
+
+
 
         #reset the loss
         self.modules.reverse()
