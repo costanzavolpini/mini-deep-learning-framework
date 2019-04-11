@@ -12,6 +12,9 @@ class SGD():
         self.model = model
         self.step = step
 
+        #print(step)
+        #print(model.modules)
+
 
     def update_weight(self):
         # self.weight = [ [w_l], [w_l+1], ... , [w_n] ]
@@ -20,14 +23,9 @@ class SGD():
 
         for layer in self.model.modules :
             if(type(layer) is Linear):
-                
-    
 
                 layer.w = layer.w - (self.step * layer.grad_w)
-
-                print(layer.w)
                 layer.b = layer.b - (self.step * layer.grad_b)
 
-                print(layer.b)
 
                 

@@ -7,7 +7,7 @@ from rocket_deepl.optimizer.sgd import *
 
 class Sequential(Module):
 
-    def __init__(self, layers, optimizer = 'sgd', loss_layer = MSEloss(), lr=0.01):
+    def __init__(self, layers, optimizer = 'sgd', loss_layer = MSEloss(), lr=1e-3):
         """
         layers is a list of modules which can also be empty.
         layers = [Linear(), Relu(), Linear()...]
@@ -43,13 +43,15 @@ class Sequential(Module):
 
 
         for inp in input :
+            x = inp.view(-1,1)
             for l in range(len(self.modules)-1) :
-                x = inp.view(-1,1)
                 x = self.modules[l].forward(x)
-            self.loss += self.modules[-1].forward(input,target)
+            self.loss += self.modules[-1].forward(x,target)
         
 
     def backward(self):
+
+        
         gradientwrtoutput = []
         #reverse for backward propogation
         self.modules.reverse()
@@ -57,6 +59,7 @@ class Sequential(Module):
             gradientwrtoutput = layer.backward(gradientwrtoutput)
 
 
+        self.loss = 0
 
 
         #reset the loss
