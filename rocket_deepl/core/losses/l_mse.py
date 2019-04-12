@@ -22,10 +22,7 @@ class MSEloss(Module):
     #TODO:
     def backward(self, *noparam):
 
-        #print(self.estimated)
-        #print(self.target)
+
         to_return =  2* (self.estimated - self.target)
-
-
 
         return to_return

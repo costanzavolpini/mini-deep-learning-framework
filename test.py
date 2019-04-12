@@ -24,8 +24,8 @@ train_input, train_target = torch.load("train"), torch.load("target")
 #train_target[:,1] = 0.
 
 print("training")
-print(train_input)
-print(train_target)
+
+
 
 
 #print(train_target)
@@ -80,9 +80,9 @@ print("tanh:\n",activation_tanh)
 """
 #print(layer_1)
 
+architecture = [Linear(2,2), ReLU()]
 
-model = Sequential([Linear(2,2), ReLU()])
-
+model = Sequential(architecture)
 epochs = 1000
 mini_batch_size = 1
 
@@ -99,7 +99,7 @@ for e in range(0, epochs):
         model(input, target.t())
         model.zero_grad()
         loss = model.loss
-        #print("loss at epoch {} = {}".format(e,model.loss))
+
         model.backward()
         model.step()
 

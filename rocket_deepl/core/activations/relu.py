@@ -18,8 +18,14 @@ class  ReLU(Module):
         where the value > 0 the derivative is 1 else is 0. In 0 is not differentiable!
         """
 
+        #print(self.input.shape)
+
         self.input[self.input < 0 ]  = 0
         self.input[self.input > 0 ]  = 1
+         
+       # print(self.input.shape)
+       # print(gradientwrtoutput.shape)
+        output = gradientwrtoutput * self.input
 
-        
-        return gradientwrtoutput * self.input
+        #print(output.shape)
+        return output
