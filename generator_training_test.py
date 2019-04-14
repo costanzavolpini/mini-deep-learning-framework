@@ -18,10 +18,8 @@ def generator(n, one_hot_enc = False):
         target_hot[:, :] = 0 # fill all with 0s
 
         # target in this case is an id than if target = 0, we put 1 in the first column, if target = 1 we put 1 in second column
-        
         target_hot[:,0] = target == 0
         target_hot[:,1] = target == 1
-
 
         return input, target_hot
 
