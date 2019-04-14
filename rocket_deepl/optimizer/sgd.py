@@ -14,10 +14,6 @@ class SGD():
         self.model = model
         self.step = step
 
-        #print(step)
-        #print(model.modules)
-
-
     def update_weight(self):
         # self.weight = [ [w_l], [w_l+1], ... , [w_n] ]
         # self.grad_loss = [ [gl_l], [gl_l+1], ... , [gl_n] ]

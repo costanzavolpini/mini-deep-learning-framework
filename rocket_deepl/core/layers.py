@@ -10,10 +10,6 @@ class Linear(Module):
         """
 
         self.stdv = 1. / math.sqrt(output_layer)
-
-
-
-
         self.input_layer = input_layer
         self.output_layer = output_layer
         
@@ -24,12 +20,6 @@ class Linear(Module):
         self.w.fill_(0.01)
         self.b.fill_(0.01)
 
-
-
-
-
-
-
         # gradients respect to weight and gradients respect to bias
         # TODO: check shape to be sure
         self.grad_w = torch.empty((self.w.shape))
@@ -38,27 +28,22 @@ class Linear(Module):
         self.grad_b = torch.empty((self.b.shape))
         self.grad_b[:,:] = 0.0
 
-        
-
     def forward(self, input_layer_before):
         """
         input_layer_before = l - 1
         """
         self.input_layer_before = input_layer_before
-        
         output  = (self.w.mm(input_layer_before)) + self.b
 
         return output
 
     def backward(self, gradientwrtoutput):
         # gradientwrtoutput = is given and is a future
-        grad_w = gradientwrtoutput @ self.input_layer_before.t()
 
-        self.grad_w += grad_w
+        self.grad_w += gradientwrtoutput @ self.input_layer_before.t()
         self.grad_b += gradientwrtoutput
 
-        return grad_w
-
+        return  self.w.t() @ gradientwrtoutput
 
     def param(self):
         return self.w, self.b
@@ -105,11 +90,3 @@ class Linear(Module):
     def zero_grad(self):
         self.grad_w[:, :] = 0.0
         self.grad_b[:, :] = 0.0
-
-
-
-
-
-
-
-
