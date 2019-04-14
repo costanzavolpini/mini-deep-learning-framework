@@ -61,7 +61,7 @@ print("tanh:\n",activation_tanh)
 
 # model = Sequential([Linear(2,2), ReLU()])
 
-model = Sequential([Linear(2, 25), ReLU(),  Linear(25, 25),  ReLU(), Linear(2, 2), tanH()])
+model = Sequential([Linear(2, 25), ReLU(),  Linear(25, 25),  ReLU(), Linear(25, 2), tanH()])
 #loss : 0.184489905834198
 
 epochs = 1000
