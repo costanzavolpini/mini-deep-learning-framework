@@ -36,13 +36,6 @@ train_model(model,
 
 compute_nb_errors(model, test_input, test_target, mini_batch_size)
 
-"""
-
-
-
-#RELU test
-
-"""
 input_ = torch.ones(4,1)
 
 
@@ -64,10 +57,12 @@ activation_tanh= tanH().forward(input_)
 print("tanh:\n",activation_tanh)
 
 """
-#print(layer_1)
 
 
-model = Sequential([Linear(2,2), ReLU()])
+# model = Sequential([Linear(2,2), ReLU()])
+
+model = Sequential([Linear(2, 25), ReLU(),  Linear(25, 25),  ReLU(), Linear(2, 2), tanH()])
+#loss : 0.184489905834198
 
 epochs = 1000
 mini_batch_size = 1
@@ -85,29 +80,8 @@ for e in range(0, epochs):
         model(input, target.t())
         model.zero_grad()
         loss = model.loss
-        #print("loss at epoch {} = {}".format(e,model.loss))
         model.backward()
         model.step()
 
 
     print("epoch : {}, loss : {}".format(e,loss))
-    #model.loss = 0
-        #model.loss = 0.0
-
-
-
-
-
-
-    #print("loss at epoch {} = {}".format(e,model.loss))
-
-
-
-
-
-
-
-
-
-
-
