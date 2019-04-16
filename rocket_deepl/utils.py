@@ -15,12 +15,25 @@ def compute_nb_errors(model, data_input, data_target, mini_batch_size):
     nb_data_errors = 0
 
     for b in range(0, data_input.size(0), mini_batch_size):
-        output = model(data_input.narrow(0, b, mini_batch_size))
-        _, predicted_classes = torch.max(output.data, 1)
-        for k in range(mini_batch_size):
-            if data_target.data[b + k] != predicted_classes[k]:
-                nb_data_errors = nb_data_errors + 1
+        
+        input = data_input.narrow(0, b, mini_batch_size)
+        target = data_target.narrow(0, b, mini_batch_size)
 
+        target_argmax = torch.argmax(target,1)
+        output = model(input, target.t())
+
+        estimated = model.predicted.type(torch.LongTensor)
+        target_argmax = target_argmax.type(torch.LongTensor)
+
+        diff = estimated-target_argmax
+
+        #count the number of values that are different than zero
+        #that would represent the number of missprediction
+
+        diff = len(diff[diff!=0])
+
+        nb_data_errors+= diff
+        
     return nb_data_errors
 
 def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1):
@@ -47,10 +60,4 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
             model.backward()
             model.step()
 
-
         print("epoch : {}, loss : {}".format(e,loss))
-
-
-def cross_validation(k):
-    #TODO: implement it
-    pass

@@ -29,9 +29,6 @@ class Linear(Module):
         self.w = torch.empty((output_layer, input_layer)).uniform_(-self.stdv, self.stdv)
         self.b = torch.empty((output_layer, 1)).uniform_(-self.stdv, self.stdv)
 
-        self.w.fill_(0.01) #TODO: why fill 0.01??
-        self.b.fill_(0.01)
-
         # gradients respect to weight and gradients respect to bias
         self.grad_w = torch.empty((self.w.shape))
         self.grad_w[:,:] = 0.0
@@ -87,12 +84,10 @@ class Linear(Module):
         Resets the weights of the model paramters with
         based on the normal distribution with 0 mean 1e-3 std
         """
-        std = 1e-3
-        mean = 0
 
         #initialize based on 0 mean and 1e-3 standard deviation
-        self.w.normal_(mean, std)
-        self.b.normal_(mean, std)
+        self.w.uniform_(-self.stdv, self.stdv)
+        self.b.uniform_(-self.stdv, self.stdv)
 
 
     def __str__(self):

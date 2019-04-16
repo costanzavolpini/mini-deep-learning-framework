@@ -33,6 +33,8 @@ class Sequential(Module):
         #added loss at last layer
         self.modules.append(loss_layer)
 
+
+
     def __call__(self, x_train,
                  target):
         """
@@ -41,7 +43,7 @@ class Sequential(Module):
             x_train: train value
             target: target value (0 or 1)
         """
-        self.forward(x_train, target)
+        return self.forward(x_train, target)
 
     def step(self):
         """
@@ -54,23 +56,27 @@ class Sequential(Module):
         Apply forward pass on all layers (excluded loss layer)
         Input:
             input: value
-            target: value (0 or 1)
+            target: value (0 or 1) the size is 2xbatch_size
         """
 
-        #print("target",target.shape)
+        #batch_size x 2 
+        self.predicted  = torch.empty(target.size(1))
 
         for i in range(input.size(0)) :
 
             inp = input[i].view(-1,2)
             targ = target[:,i].view(2,-1)
 
-            #print("here",inp.shape)
             x = inp.view(-1,1)
 
             #dont take the last layer since it behaves differently
             for l in range(len(self.modules)-1) :
                 x = self.modules[l].forward(x)
+        
+            self.predicted[i] = torch.argmax(x)
             self.loss += self.modules[-1].forward(x,targ)
+
+        return x
 
 
     def backward(self):
@@ -132,3 +138,8 @@ class Sequential(Module):
         for l in self.modules:
             if(type(l) is Linear):
                 l.zero_grad()
+    
+
+    def get_predicted(self):
+
+        return self.predicted

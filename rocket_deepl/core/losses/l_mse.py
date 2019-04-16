@@ -43,9 +43,6 @@ class MSEloss(Module):
         Output:
             gradient of the loss with respect to the input
         """
-        #TODO: why we are not using param?!?!?
-
-        #print("est",self.estimated.shape)
 
         to_return =  2 * (self.estimated - self.target)
 
