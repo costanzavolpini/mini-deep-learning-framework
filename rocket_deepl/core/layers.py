@@ -70,7 +70,7 @@ class Linear(Module):
         self.grad_w += grad_w
         self.grad_b += gradientwrtoutput
 
-        return grad_w
+        return self.w.t() @ gradientwrtoutput
 
 
     def param(self):
