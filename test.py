@@ -68,9 +68,10 @@ Linear(25, 2), tanH()
 #loss : 0.184489905834198
 
 epochs = 1000
-mini_batch_size = 100
+mini_batch_size = 1
 
 
+"""
 for e in range(0, epochs):
 
     model.zero_grad()
@@ -87,3 +88,6 @@ for e in range(0, epochs):
 
 
     print("epoch : {}, loss : {}".format(e,loss))
+"""
+
+train_model(model, train_input, train_target, epochs, mini_batch_size)

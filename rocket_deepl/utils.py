@@ -34,16 +34,21 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
     """
 
     for e in range(0, epochs):
+
+        model.zero_grad()
         for batch in range(0, train_input.size(0), mini_batch_size):
-            model(train_target.narrow(0, batch, mini_batch_size))
 
-            print("loss at epoch {} = {}".format(e,model.loss))
+            input = train_input.narrow(0, batch, mini_batch_size)
+            target = train_target.narrow(0, batch, mini_batch_size)
 
+            model(input, target.t())
             model.zero_grad()
+            loss = model.loss
             model.backward()
             model.step()
 
-            #TODO: output the loss (bonus accuracy viz)
+
+        print("epoch : {}, loss : {}".format(e,loss))
 
 
 def cross_validation(k):
