@@ -13,8 +13,10 @@ class  tanH(Module):
         Output:
             inp: value where we have applied tanh
         """
-        inp = input.tanh()
-        return inp
+
+        self.input = input.tanh()
+        
+        return self.input
 
     def backward(self, gradientwrtoutput):
         """
@@ -24,4 +26,4 @@ class  tanH(Module):
         Output:
             gradient of the loss with respect to the input
         """
-        return 1 - (gradientwrtoutput.tanh() ** 2)
+        return gradientwrtoutput * (1 - (self.input.tanh() ** 2))
