@@ -3,24 +3,27 @@ from rocket_deepl.module import *
 
 
 class  tanH(Module):
-    """
-    Non-linear function used to guarantee a good accuracy of the model.
-    Negative inputs are mapped strongly negative and 0 will mapped near 0.
-    It is differentiable!
-    Range: (-1, 1)
-
-    Used for binary classification.
-    """
+    "Activation non-linear function: hyperbolic tangent operation"
 
     def forward(self, input):
-        inp = input.tanh()
-        #TODO: remove comment of debug
-        #inp[inp == -1] = 0
+        """
+        Apply tanh function on input
+        Input:
+            input: value
+        Output:
+            inp: value where we have applied tanh
+        """
 
-        #TODO: transpose
-        #inp = inp.t()
-        return inp
+        self.input = input.tanh()
+        
+        return self.input
 
     def backward(self, gradientwrtoutput):
-        "Derivative of tanh(x) is 1 - tanh^2(x)"
-        return 1 - (gradientwrtoutput.tanh() ** 2)
+        """
+        Derivative of tanh(x) is 1 - tanh^2(x)
+        Input:
+            gradientwrtoutput: gradient respect to the output
+        Output:
+            gradient of the loss with respect to the input
+        """
+        return gradientwrtoutput * (1 - (self.input.tanh() ** 2))

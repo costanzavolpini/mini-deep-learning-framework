@@ -10,14 +10,23 @@ class SGD():
     """
 
     def __init__(self, model, step):
-        # step = learning rate
+        """
+        Initialization function.
+        Input:
+            model: model
+            step: value
+        """
         self.model = model
-        self.step = step
+        self.step = step #step = learning rate
+
+
 
     def update_weight(self):
-        # self.weight = [ [w_l], [w_l+1], ... , [w_n] ]
-        # self.grad_loss = [ [gl_l], [gl_l+1], ... , [gl_n] ]
-
+        """
+        Function to update all the parameters. #TODO: maybe rename into update_params?
+        self.weight = [ [w_l], [w_l+1], ... , [w_n] ]
+        self.grad_loss = [ [gl_l], [gl_l+1], ... , [gl_n] ]
+        """
         for layer in self.model.modules :
             if(type(layer) is Linear):
 

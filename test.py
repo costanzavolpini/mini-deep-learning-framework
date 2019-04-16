@@ -8,14 +8,7 @@ from rocket_deepl.sequential import *
 from rocket_deepl.utils import *
 
 
-
-#from rocket_deepl.core.layers import Linear
-#from rocket_deepl.sequential import Sequential 
-
-
 train_input, train_target = torch.load("train"), torch.load("target")
-
-
 
 #train_input[:,0] = 0.4557
 #train_input[:,1] = 0.5492
@@ -24,18 +17,11 @@ train_input, train_target = torch.load("train"), torch.load("target")
 #train_target[:,1] = 0.
 
 print("training")
+print(train_input)
+print(train_target)
 
 
-
-
-#print(train_target)
-
-
-#model = Sequential([ Linear(3,4) , ReLU(),  Linear(3,4), ReLU()]) 
-
-
-
-
+#model = Sequential([ Linear(3,4) , ReLU(),  Linear(3,4), ReLU()])
 
 
 epochs  = 25
@@ -43,20 +29,13 @@ mini_batch_size = 1
 
 """
 train_model(model,
-            train_input, 
-            train_target, 
+            train_input,
+            train_target,
             epochs,
             mini_batch_size)
 
 compute_nb_errors(model, test_input, test_target, mini_batch_size)
 
-"""
-
-
-
-#RELU test
-
-"""
 input_ = torch.ones(4,1)
 
 
@@ -78,18 +57,20 @@ activation_tanh= tanH().forward(input_)
 print("tanh:\n",activation_tanh)
 
 """
-#print(layer_1)
 
-architecture = [Linear(2,2), ReLU()]
 
-model = Sequential(architecture)
+# model = Sequential([Linear(2,2), ReLU()])
+
+model = Sequential([Linear(2, 25), ReLU(),  Linear(25, 25),  ReLU(), Linear(25, 2), tanH()])
+#loss : 0.184489905834198
+
 epochs = 1000
 mini_batch_size = 1
 
 
 s = train_input.narrow(0, 0, mini_batch_size)
 for e in range(0, epochs):
-    
+
     model.zero_grad()
     for batch in range(0, train_input.size(0), mini_batch_size):
 
@@ -99,29 +80,8 @@ for e in range(0, epochs):
         model(input, target.t())
         model.zero_grad()
         loss = model.loss
-
         model.backward()
         model.step()
 
-        
+
     print("epoch : {}, loss : {}".format(e,loss))
-    #model.loss = 0
-        #model.loss = 0.0
-
-   
-
-    
-      
-
-    #print("loss at epoch {} = {}".format(e,model.loss))
-
-
-
-
-        
-
-
-
-
-
-
