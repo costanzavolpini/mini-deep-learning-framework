@@ -10,17 +10,6 @@ from rocket_deepl.utils import *
 
 train_input, train_target = torch.load("train"), torch.load("target")
 
-#train_input[:,0] = 0.4557
-#train_input[:,1] = 0.5492
-
-#train_target[:,0] = 1.0
-#train_target[:,1] = 0.
-
-print("training")
-print(train_input)
-print(train_target)
-
-
 #model = Sequential([ Linear(3,4) , ReLU(),  Linear(3,4), ReLU()])
 
 
@@ -61,14 +50,27 @@ print("tanh:\n",activation_tanh)
 
 # model = Sequential([Linear(2,2), ReLU()])
 
-model = Sequential([Linear(2, 25), ReLU(),  Linear(25, 25),  ReLU(), Linear(25, 2), tanH()])
+model = Sequential([
+Linear(2, 25), ReLU(),
+Linear(25, 25),ReLU(), 
+Linear(25,25), ReLU(), 
+Linear(25,25), ReLU(),
+Linear(25, 2), tanH()
+])
+
+"""
+Linear(25, 25),ReLU(), 
+Linear(25,25), ReLU(), 
+Linear(25,25), ReLU(),
+Linear(25, 2), tanH()
+
+"""
 #loss : 0.184489905834198
 
 epochs = 1000
-mini_batch_size = 1
+mini_batch_size = 100
 
 
-s = train_input.narrow(0, 0, mini_batch_size)
 for e in range(0, epochs):
 
     model.zero_grad()

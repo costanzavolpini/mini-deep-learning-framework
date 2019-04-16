@@ -57,13 +57,20 @@ class Sequential(Module):
             target: value (0 or 1)
         """
 
-        for inp in input :
+        #print("target",target.shape)
+
+        for i in range(input.size(0)) :
+
+            inp = input[i].view(-1,2)
+            targ = target[:,i].view(2,-1)
+
+            #print("here",inp.shape)
             x = inp.view(-1,1)
 
             #dont take the last layer since it behaves differently
             for l in range(len(self.modules)-1) :
                 x = self.modules[l].forward(x)
-            self.loss += self.modules[-1].forward(x,target)
+            self.loss += self.modules[-1].forward(x,targ)
 
 
     def backward(self):
@@ -89,6 +96,8 @@ class Sequential(Module):
         """
         Fit function, call forward pass on all layers.
         """
+
+        print(x_train.size(0))
         for x in range(0, x_train.size(0)):
             self.forward(x,target)
 

@@ -45,6 +45,8 @@ class MSEloss(Module):
         """
         #TODO: why we are not using param?!?!?
 
+        #print("est",self.estimated.shape)
+
         to_return =  2 * (self.estimated - self.target)
 
         return to_return
