@@ -85,7 +85,7 @@ class Linear(Module):
         based on the normal distribution with 0 mean 1e-3 std
         """
 
-        #initialize based on 0 mean and 1e-3 standard deviation
+        # initialize based on 0 mean and 1e-3 standard deviation
         self.w.uniform_(-self.stdv, self.stdv)
         self.b.uniform_(-self.stdv, self.stdv)
 

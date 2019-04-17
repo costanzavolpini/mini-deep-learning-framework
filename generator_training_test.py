@@ -15,8 +15,7 @@ def generator(n):
     radius = 1/(2*math.pi) #0.398...
     target = (input - 0.5).pow(2).sum(1).sub(radius).sign().add(1).div(2).long()
 
-    # Enable hot encoding
-
+    # hot encoding
     # target in this case is an id than if target = 0,
     # put 1 in the first column, if target = 1 we put 1 in second column
     target_hot = torch.empty(target.shape[0], 2)
@@ -24,7 +23,7 @@ def generator(n):
 
     target_hot[:,0] = target == 0
     target_hot[:,1] = target == 1
-    
+
     return input, target_hot
 
 

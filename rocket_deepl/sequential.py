@@ -35,7 +35,6 @@ class Sequential(Module):
         #added loss at last layer
         self.modules.append(loss_layer)
 
-
         self.plot_loss = []
         self.plot_accuracy = []
 
@@ -62,10 +61,9 @@ class Sequential(Module):
         Apply forward pass on all layers (excluded loss layer)
         Input:
             input: value
-            target: value (0 or 1) the size is 2xbatch_size
+            target: value (0 or 1) the size is 2 x batch_size
         """
-
-        #batch_size x 2 
+        # batch_size x 2
         self.predicted  = torch.empty(target.size(1))
 
         for i in range(input.size(0)) :
@@ -75,10 +73,10 @@ class Sequential(Module):
 
             x = inp.view(-1,1)
 
-            #dont take the last layer since it behaves differently
+            # do not take the last layer since it behaves differently
             for l in range(len(self.modules)-1) :
                 x = self.modules[l].forward(x)
-        
+
             self.predicted[i] = torch.argmax(x)
             self.loss += self.modules[-1].forward(x,targ)
 
@@ -91,7 +89,7 @@ class Sequential(Module):
         """
         gradientwrtoutput = []
 
-        #reverse for backward propogation
+        # reverse for backward propogation
         self.modules.reverse()
 
         for layer in self.modules:
@@ -99,7 +97,7 @@ class Sequential(Module):
 
         self.loss = 0
 
-        #reset the loss
+        # reset the loss
         self.modules.reverse()
 
 
@@ -115,21 +113,19 @@ class Sequential(Module):
 
 
     def plot_accuracy_loss(self):
-        #TODO: implement
-
-
-
-        plt.plot(self.plot_accuracy, '-m',label="accuracy")
+        """
+        Function to plot the accuracy and loss.
+        """
+        plt.plot(self.plot_accuracy, '-g',label="accuracy")
         plt.plot(self.plot_loss, '-c',label="loss")
 
         plt.xlabel("number of epochs")
-        plt.legend(loc= 'upper left')
-        plt.title("accuracy loss plot")
+        plt.legend(loc ='upper left')
+        plt.title("Plot that shows accuracy and loss on {} epochs".format(len(self.plot_loss)))
 
-        #plt.savefig("accuracy_loss.png")
-
+        # save the file
+        plt.savefig("accuracy_loss.png")
         plt.show()
-        
 
 
     def save_model(self, name):
@@ -155,8 +151,10 @@ class Sequential(Module):
         for l in self.modules:
             if(type(l) is Linear):
                 l.zero_grad()
-    
+
 
     def get_predicted(self):
-
+        """
+        Get the predicted
+        """
         return self.predicted

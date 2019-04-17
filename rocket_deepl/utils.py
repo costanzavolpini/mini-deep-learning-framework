@@ -15,7 +15,7 @@ def compute_nb_errors(model, data_input, data_target, mini_batch_size):
     nb_data_errors = 0
 
     for b in range(0, data_input.size(0), mini_batch_size):
-        
+
         #retrieve input and target in batches
         input = data_input.narrow(0, b, mini_batch_size)
         target = data_target.narrow(0, b, mini_batch_size)
@@ -35,11 +35,10 @@ def compute_nb_errors(model, data_input, data_target, mini_batch_size):
 
         #count the number of values that are different than zero
         #that would represent the number of missprediction
-
         diff = len(diff[diff!=0])
 
         nb_data_errors+= diff
-        
+
     return nb_data_errors
 
 def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1):
@@ -51,9 +50,6 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
         epochs: #iterations
         mini_batch_size: size of batch
     """
-
-
-
     for e in range(0, epochs):
 
         model.zero_grad()
@@ -69,7 +65,7 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
             model.step()
 
         accuracy = (1 - (compute_nb_errors(model, train_input, train_target, mini_batch_size))/train_input.size(0))
-       
+
         model.plot_accuracy.append(accuracy)
         model.plot_loss.append(loss)
 
