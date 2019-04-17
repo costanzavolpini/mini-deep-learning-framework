@@ -1,6 +1,8 @@
 import torch
 from rocket_deepl.module import *
 
+import matplotlib.pyplot as plt
+
 from rocket_deepl.core.losses.l_mse import *
 from rocket_deepl.optimizer.sgd import *
 
@@ -32,6 +34,10 @@ class Sequential(Module):
 
         #added loss at last layer
         self.modules.append(loss_layer)
+
+
+        self.plot_loss = []
+        self.plot_accuracy = []
 
 
 
@@ -107,13 +113,24 @@ class Sequential(Module):
         for x in range(0, x_train.size(0)):
             self.forward(x,target)
 
-    def compute_accuracy(self):
-        #TODO: implement
-        pass
 
-    def plot_history(self):
+    def plot_accuracy_loss(self):
         #TODO: implement
-        pass
+
+
+
+        plt.plot(self.plot_accuracy, '-m',label="accuracy")
+        plt.plot(self.plot_loss, '-c',label="loss")
+
+        plt.xlabel("number of epochs")
+        plt.legend(loc= 'upper left')
+        plt.title("accuracy loss plot")
+
+        #plt.savefig("accuracy_loss.png")
+
+        plt.show()
+        
+
 
     def save_model(self, name):
         """

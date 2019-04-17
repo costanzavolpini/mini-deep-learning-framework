@@ -25,6 +25,9 @@ mini_batch_size = 1
 
 train_model(model, train_input, train_target, epochs, mini_batch_size)
 
+
+model.plot_accuracy_loss()
+
 number = compute_nb_errors(model, test_input, test_target, mini_batch_size)
 
 accuracy = (1-number/test_input.size(0))*100

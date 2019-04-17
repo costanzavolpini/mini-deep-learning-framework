@@ -52,6 +52,8 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
         mini_batch_size: size of batch
     """
 
+
+
     for e in range(0, epochs):
 
         model.zero_grad()
@@ -59,11 +61,16 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
 
             input = train_input.narrow(0, batch, mini_batch_size)
             target = train_target.narrow(0, batch, mini_batch_size)
-            
+
             model(input, target.t())
             model.zero_grad()
             loss = model.loss
             model.backward()
             model.step()
+
+        accuracy = (1 - (compute_nb_errors(model, train_input, train_target, mini_batch_size))/train_input.size(0))
+       
+        model.plot_accuracy.append(accuracy)
+        model.plot_loss.append(loss)
 
         print("epoch : {}, loss : {}".format(e,loss))
