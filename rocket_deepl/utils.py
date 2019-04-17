@@ -16,15 +16,21 @@ def compute_nb_errors(model, data_input, data_target, mini_batch_size):
 
     for b in range(0, data_input.size(0), mini_batch_size):
         
+        #retrieve input and target in batches
         input = data_input.narrow(0, b, mini_batch_size)
         target = data_target.narrow(0, b, mini_batch_size)
 
+        #retrive max index of the the target
         target_argmax = torch.argmax(target,1)
-        output = model(input, target.t())
 
+        #apply forward pass
+        model(input, target.t())
+
+        #change type
         estimated = model.predicted.type(torch.LongTensor)
         target_argmax = target_argmax.type(torch.LongTensor)
 
+        #compare the difference between target and estimated
         diff = estimated-target_argmax
 
         #count the number of values that are different than zero
@@ -53,7 +59,7 @@ def train_model(model, train_input, train_target, epochs=25, mini_batch_size = 1
 
             input = train_input.narrow(0, batch, mini_batch_size)
             target = train_target.narrow(0, batch, mini_batch_size)
-
+            
             model(input, target.t())
             model.zero_grad()
             loss = model.loss
