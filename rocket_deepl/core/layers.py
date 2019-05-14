@@ -19,11 +19,10 @@ class Linear(Module):
             input_layer: numbers of nodes in input layer
             output_layer: numbers of nodes in output layer
         """
-
-        self.stdv = 1. / math.sqrt(output_layer)
-
         self.input_layer = input_layer
         self.output_layer = output_layer
+
+        self.stdv = 1. / math.sqrt(output_layer)
 
         # Initialization in a uniform random distribution [-stdv, stdv]
         self.w = torch.empty((output_layer, input_layer)).uniform_(-self.stdv, self.stdv)
@@ -48,15 +47,14 @@ class Linear(Module):
         """
         self.input_layer_before = input_layer_before
 
-        output  = (self.w.mm(input_layer_before)) + self.b
+        output = (self.w.mm(input_layer_before)) + self.b
 
         return output
 
     def backward(self, gradientwrtoutput):
         """
-        Receive the gradient from its OUTPUT (gradientwrtoutput).
+        Receive the gradient from its output (gradientwrtoutput).
         Calculate new gradient respect of the weights.
-        Update accumulator fields.
         Input:
             gradientwrtoutput: gradient respect to the output
         Output:
@@ -64,11 +62,11 @@ class Linear(Module):
         """
         grad_w = gradientwrtoutput @ self.input_layer_before.t()
 
+        # update accumulator fields
         self.grad_w += grad_w
         self.grad_b += gradientwrtoutput
 
         return self.w.t() @ gradientwrtoutput
-
 
     def param(self):
         """
@@ -81,18 +79,14 @@ class Linear(Module):
 
     def reset_weights(self):
         """
-        Resets the weights of the model paramters with
-        based on the normal distribution with 0 mean 1e-3 std
+        Resets the weights of the model parameters respect uniform random distribution [-stdv, stdv]
         """
-
-        # initialize based on 0 mean and 1e-3 standard deviation
         self.w.uniform_(-self.stdv, self.stdv)
         self.b.uniform_(-self.stdv, self.stdv)
 
-
     def __str__(self):
         """
-        Method to String
+        Method to String.
         Output:
             string
         """
@@ -105,9 +99,7 @@ class Linear(Module):
         self.grad_w[:, :] = 0.0
         self.grad_b[:, :] = 0.0
 
-    """
-    Functions getter
-    """
+    ############################## FUNCTIONS GETTER ##############################
     def get_input_layer(self):
         """
         Output:

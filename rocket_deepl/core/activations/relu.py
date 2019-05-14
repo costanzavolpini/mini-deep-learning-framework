@@ -1,23 +1,20 @@
 import torch
 from rocket_deepl.module import *
-
-
 class  ReLU(Module):
     "Activation non-linear function: Rectified Linear Units"
 
     def forward(self, input):
         """
-        Apply relu function on input
+        Apply ReLU function on input.
         Input:
             input: value
         Output:
-            input: input where we have applied relu
+            input where we have applied relu
         """
-
         input[input < 0 ] = 0.0
         self.input = input
 
-        return  self.input
+        return self.input
 
     def backward(self, gradientwrtoutput):
         """
@@ -26,9 +23,8 @@ class  ReLU(Module):
         Input:
             gradientwrtoutput: gradient respect to the output
         Output:
-            gradient of the loss with respect to the input
+            gradient of the loss with respect of the parameter input of network
         """
-
         self.input[self.input < 0 ]  = 0
         self.input[self.input > 0 ]  = 1
 
