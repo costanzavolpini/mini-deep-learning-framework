@@ -101,8 +101,8 @@ class Sequential(Module):
         """
         Function to plot the accuracy and loss.
         """
-        plt.plot(self.plot_accuracy, '-g',label="accuracy")
-        plt.plot(self.plot_loss, '-c',label="loss")
+        plt.plot(self.plot_accuracy, color='indianred', label="accuracy")
+        plt.plot(self.plot_loss, color='royalblue', label="loss")
 
         plt.xlabel("number of epochs")
         plt.legend(loc ='upper left')

@@ -21,11 +21,13 @@ model = Sequential([
     Linear(2, 25), ReLU(),
     Linear(25,25), ReLU(),
     Linear(25,25), ReLU(),
+    Linear(25,25), ReLU(),
     Linear(25, 2), tanH()
 ])
 
-epochs = 50
-mini_batch_size = 1
+epochs = 250
+mini_batch_size = 2
+
 
 # train
 train_model(model, train_input, train_target, epochs, mini_batch_size)

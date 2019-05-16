@@ -12,3 +12,5 @@ rocket_deepl/__pycache__/
 rocket_deepl/core/__pycache__/
 
 *.pyc
+
+\.ipynb_checkpoints/

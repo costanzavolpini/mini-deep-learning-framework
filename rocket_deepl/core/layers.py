@@ -99,6 +99,9 @@ class Linear(Module):
         self.grad_w[:, :] = 0.0
         self.grad_b[:, :] = 0.0
 
+    def reset(self):
+        self.__init__(self.input_layer, self.output_layer)
+
     ############################## FUNCTIONS GETTER ##############################
     def get_input_layer(self):
         """
