@@ -7,16 +7,13 @@ from rocket_deepl.core.layers import *
 from rocket_deepl.sequential import *
 from rocket_deepl.utils import *
 
-
-# Decomment to load the dataset
-# train_input, train_target = torch.load('train'), torch.load('target')
-
+# Generate training set with one-hot encoding
 train_input, train_target = generator(1000)
 
-# Generate the dataset with one-hot encoding
+# Generate test set with one-hot encoding
 test_input, test_target = generator(1000)
 
-# Model with 2 input units, 2 output units and 3 hidden layers
+# Model with 2 input units, 2 output units and 3 hidden layers as requested
 model = Sequential([
     Linear(2, 25), ReLU(),
     Linear(25,25), ReLU(),
@@ -28,12 +25,11 @@ model = Sequential([
 epochs = 250
 mini_batch_size = 2
 
-
 # train
 train_model(model, train_input, train_target, epochs, mini_batch_size)
 
 # plot accuracy and loss
-model.plot_accuracy_loss()
+# model.plot_accuracy_loss()
 
 # compute miss prediction
 number = compute_nb_errors(model, test_input, test_target, mini_batch_size)

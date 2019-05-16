@@ -22,6 +22,8 @@ In the last few years, Neural Networks have proved to be one of the most effecti
 - rocket_deepl/utils.py: contain compute_nb_errors(), train_model() methods.
 - generator_training_test.py: contain function to generate train and target.
 - test.py: main code to run a network with two input units, two output units, three hidden layers of 25 units.
+- comparison_report.ipynb: jupyter notebook used for comparing model (report purpose).
+
 
 ### TO RUN THE CODE:
 From the root of the project: ``` python test.py ```
